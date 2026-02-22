@@ -21,6 +21,9 @@ export default function BlogDetail() {
     const [notFound, setNotFound] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+
         supabase.from('articles').select('*').eq('slug', slug).eq('published', true).single()
             .then(({ data, error }) => {
                 if (error || !data) { setNotFound(true); setLoading(false); return; }
@@ -101,34 +104,37 @@ export default function BlogDetail() {
             )}
 
             <div style={{ background: 'var(--bg)', paddingTop: article.thumbnail ? 0 : 90 }}>
-                <div className="article-layout">
+                {/* Full-width Header Area */}
+                <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
+                    {/* Back + meta */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 28, marginBottom: 20, flexWrap: 'wrap', gap: 10 }}>
+                        <Link to="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, color: 'var(--white-60)', textDecoration: 'none', fontSize: 14, fontWeight: 500 }}>
+                            <ArrowLeft size={14} /> Semua Artikel
+                        </Link>
+                        <button onClick={handleShare} style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, padding: '7px 14px', color: 'rgba(255,255,255,0.6)', cursor: 'pointer', fontSize: 13 }}>
+                            <Share2 size={13} /> Bagikan
+                        </button>
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 16, color: 'var(--white-60)', fontSize: 13, marginBottom: 16, flexWrap: 'wrap' }}>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}><Calendar size={13} />{new Date(article.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}><Clock size={13} />{minutes} menit baca</span>
+                    </div>
+
+                    <h1 style={{ fontSize: 'clamp(1.6rem,4vw,2.6rem)', fontWeight: 800, lineHeight: 1.25, marginBottom: 16, color: '#fff', maxWidth: 900 }}>
+                        {article.title}
+                    </h1>
+
+                    {article.excerpt && (
+                        <p style={{ fontSize: 18, color: 'var(--white-60)', lineHeight: 1.75, marginBottom: 32, paddingBottom: 28, borderBottom: '1px solid rgba(255,255,255,0.07)', maxWidth: 850 }}>
+                            {article.excerpt}
+                        </p>
+                    )}
+                </div>
+
+                <div className="article-layout" style={{ paddingTop: 10 }}>
                     {/* ── Main article ── */}
                     <main>
-                        {/* Back + meta */}
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 28, marginBottom: 20, flexWrap: 'wrap', gap: 10 }}>
-                            <Link to="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, color: 'var(--white-60)', textDecoration: 'none', fontSize: 14, fontWeight: 500 }}>
-                                <ArrowLeft size={14} /> Semua Artikel
-                            </Link>
-                            <button onClick={handleShare} style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, padding: '7px 14px', color: 'rgba(255,255,255,0.6)', cursor: 'pointer', fontSize: 13 }}>
-                                <Share2 size={13} /> Bagikan
-                            </button>
-                        </div>
-
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 16, color: 'var(--white-60)', fontSize: 13, marginBottom: 16, flexWrap: 'wrap' }}>
-                            <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}><Calendar size={13} />{new Date(article.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-                            <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}><Clock size={13} />{minutes} menit baca</span>
-                        </div>
-
-                        <h1 style={{ fontSize: 'clamp(1.6rem,4vw,2.4rem)', fontWeight: 800, lineHeight: 1.25, marginBottom: 16, color: '#fff' }}>
-                            {article.title}
-                        </h1>
-
-                        {article.excerpt && (
-                            <p style={{ fontSize: 18, color: 'var(--white-60)', lineHeight: 1.75, marginBottom: 32, paddingBottom: 28, borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
-                                {article.excerpt}
-                            </p>
-                        )}
-
                         {/* Content */}
                         <div className="article-content" dangerouslySetInnerHTML={{ __html: article.content }} />
 
