@@ -4,68 +4,13 @@ import { supabase } from '../lib/supabase';
 import { Calendar, ArrowLeft, Clock, Share2, MessageSquare } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import AdBanner from '../components/AdBanner';
 
 /* ── Reading time estimate ────────────────────────────── */
 function readingTime(html) {
     const text = html?.replace(/<[^>]+>/g, '') || '';
     const words = text.trim().split(/\s+/).length;
     return Math.max(1, Math.round(words / 200));
-}
-
-/* ── Ad Banner ─────────────────────────────────────────── */
-function AdBanner({ type = 'inline' }) {
-    const adLink = 'https://accesstrade.co.id/';
-    if (type === 'sidebar') {
-        return (
-            <a href={adLink} target="_blank" rel="noopener noreferrer sponsored" style={{ display: 'block', textDecoration: 'none' }}>
-                <div style={{
-                    background: 'linear-gradient(135deg, rgba(245,197,24,0.08), rgba(17,15,32,0.5))',
-                    border: '1px solid rgba(245,197,24,0.2)', borderRadius: 16,
-                    padding: 20, textAlign: 'center',
-                    transition: 'border-color 0.2s, transform 0.2s', cursor: 'pointer',
-                }}
-                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(245,197,24,0.4)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(245,197,24,0.2)'; e.currentTarget.style.transform = 'none'; }}
-                >
-                    <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', marginBottom: 10, letterSpacing: '0.1em' }}>SPONSOR</div>
-                    <div style={{ fontSize: 32, marginBottom: 10 }}>💡</div>
-                    <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 8, color: '#fff' }}>Hasilkan dari Blog Kamu</div>
-                    <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', lineHeight: 1.65, marginBottom: 14 }}>
-                        Pasang iklan affiliate AccessTrade dan dapatkan komisi untuk setiap klik & konversi.
-                    </p>
-                    <div style={{ padding: '9px 16px', background: '#f5c518', borderRadius: 8, color: '#000', fontSize: 12, fontWeight: 700, display: 'inline-block' }}>
-                        Daftar Publisher →
-                    </div>
-                </div>
-            </a>
-        );
-    }
-    /* inline (between content sections) */
-    return (
-        <a href={adLink} target="_blank" rel="noopener noreferrer sponsored" style={{ display: 'block', textDecoration: 'none', margin: '32px 0' }}>
-            <div style={{
-                background: 'linear-gradient(135deg, rgba(59,130,246,0.08), rgba(139,92,246,0.06))',
-                border: '1px solid rgba(99,102,241,0.2)', borderRadius: 16,
-                padding: '20px 24px', display: 'flex', alignItems: 'center', gap: 18,
-                transition: 'border-color 0.2s', cursor: 'pointer',
-            }}
-                onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(99,102,241,0.4)'}
-                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(99,102,241,0.2)'}
-            >
-                <div style={{ fontSize: 36, flexShrink: 0 }}>🌐</div>
-                <div>
-                    <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em', marginBottom: 4 }}>IKLAN</div>
-                    <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 4 }}>Butuh Domain & Hosting Murah?</div>
-                    <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}>
-                        Dapatkan hosting premium mulai Rp 15.000/bulan. SSD cepat, gratis SSL, dan support Indonesia.
-                    </p>
-                </div>
-                <div style={{ padding: '9px 16px', background: 'rgba(99,102,241,0.85)', borderRadius: 10, color: '#fff', fontWeight: 700, fontSize: 13, flexShrink: 0, whiteSpace: 'nowrap' }}>
-                    Cek Harga →
-                </div>
-            </div>
-        </a>
-    );
 }
 
 export default function BlogDetail() {
@@ -188,7 +133,7 @@ export default function BlogDetail() {
                         <div className="article-content" dangerouslySetInnerHTML={{ __html: article.content }} />
 
                         {/* Mid-article Ad */}
-                        <AdBanner type="inline" />
+                        <AdBanner placement="content_bottom" />
 
                         {/* Bottom CTA */}
                         <div style={{ marginTop: 48, padding: '32px', background: 'linear-gradient(135deg, rgba(245,197,24,0.07), rgba(245,197,24,0.02))', border: '1px solid rgba(245,197,24,0.18)', borderRadius: 20, textAlign: 'center' }}>
@@ -228,7 +173,7 @@ export default function BlogDetail() {
                     {/* ── Sidebar ── */}
                     <aside className="article-sidebar" style={{ position: 'sticky', top: 100, display: 'flex', flexDirection: 'column', gap: 20 }}>
                         {/* Ad */}
-                        <AdBanner type="sidebar" />
+                        <AdBanner placement="sidebar" />
 
                         {/* About BangBisnis */}
                         <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 16, padding: 20 }}>

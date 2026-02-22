@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate, Outlet } from 'react-router-dom';
-import { LayoutDashboard, FileText, Briefcase, LogOut, Zap, Menu, X } from 'lucide-react';
+import { LayoutDashboard, FileText, Briefcase, Megaphone, LogOut, Zap, Menu, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const navItems = [
     { to: '/admin', label: 'Dashboard', icon: <LayoutDashboard size={18} />, end: true },
     { to: '/admin/artikel', label: 'Artikel Blog', icon: <FileText size={18} /> },
     { to: '/admin/portfolio', label: 'Portofolio', icon: <Briefcase size={18} /> },
+    { to: '/admin/iklan', label: 'Manajemen Iklan', icon: <Megaphone size={18} /> },
 ];
 
 export default function AdminLayout() {

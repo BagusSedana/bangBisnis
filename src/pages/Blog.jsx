@@ -1,65 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
-import { Calendar, ArrowRight, TrendingUp, Tag } from 'lucide-react';
+import { Calendar, ArrowRight, TrendingUp } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-
-/* ── Placeholder Ad Banner ────────────────────────────────── */
-function AdBanner({ type = 'horizontal' }) {
-    // Replace href with your AccessTrade affiliate link after signing up
-    const adLink = 'https://accesstrade.co.id/';
-    if (type === 'sidebar') {
-        return (
-            <a href={adLink} target="_blank" rel="noopener noreferrer sponsored" style={{ display: 'block', textDecoration: 'none' }}>
-                <div style={{
-                    background: 'linear-gradient(135deg, #1a0a2e, #0f0d1e)',
-                    border: '1px solid rgba(245,197,24,0.2)', borderRadius: 16,
-                    padding: 20, textAlign: 'center', cursor: 'pointer',
-                    transition: 'transform 0.2s, border-color 0.2s',
-                }}
-                    onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.borderColor = 'rgba(245,197,24,0.4)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.borderColor = 'rgba(245,197,24,0.2)'; }}
-                >
-                    <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', marginBottom: 10, letterSpacing: '0.1em' }}>IKLAN</div>
-                    <div style={{ fontSize: 28, marginBottom: 8 }}>🚀</div>
-                    <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 8, color: '#fff' }}>Cari Hosting Terpercaya?</div>
-                    <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, marginBottom: 14 }}>
-                        Hosting cepat, uptime 99.9%, support 24/7. Cocok untuk UMKM Indonesia.
-                    </p>
-                    <div style={{ padding: '8px 14px', background: '#f5c518', borderRadius: 8, color: '#000', fontSize: 12, fontWeight: 700, display: 'inline-block' }}>
-                        Cek Penawaran →
-                    </div>
-                </div>
-            </a>
-        );
-    }
-    return (
-        <a href={adLink} target="_blank" rel="noopener noreferrer sponsored" style={{ display: 'block', textDecoration: 'none' }}>
-            <div style={{
-                background: 'linear-gradient(135deg, rgba(245,197,24,0.06), rgba(139,92,246,0.06))',
-                border: '1px solid rgba(245,197,24,0.15)', borderRadius: 16,
-                padding: '20px 24px', display: 'flex', alignItems: 'center',
-                gap: 20, cursor: 'pointer', transition: 'border-color 0.2s',
-            }}
-                onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(245,197,24,0.3)'}
-                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(245,197,24,0.15)'}
-            >
-                <div style={{ fontSize: 36, flexShrink: 0 }}>💼</div>
-                <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.1em', marginBottom: 4 }}>IKLAN</div>
-                    <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 4 }}>Pasang Iklan & Cari Penghasilan Tambahan</div>
-                    <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}>
-                        Bergabung sebagai publisher di AccessTrade dan hasilkan komisi dari setiap klik.
-                    </p>
-                </div>
-                <div style={{ padding: '10px 18px', background: '#f5c518', borderRadius: 10, color: '#000', fontWeight: 700, fontSize: 13, flexShrink: 0, whiteSpace: 'nowrap' }}>
-                    Daftar Gratis →
-                </div>
-            </div>
-        </a>
-    );
-}
+import AdBanner from '../components/AdBanner';
 
 /* ── Article Card ─────────────────────────────────────────── */
 function ArticleCard({ article, featured = false }) {
@@ -119,17 +64,40 @@ function Skeleton({ h = 200, br = 12 }) {
 export default function Blog() {
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const LIMIT = 10;
 
     useEffect(() => {
-        supabase.from('articles')
-            .select('id, title, slug, excerpt, thumbnail, created_at')
-            .eq('published', true)
-            .order('created_at', { ascending: false })
-            .then(({ data }) => { setArticles(data || []); setLoading(false); });
-    }, []);
+        setLoading(true);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    const featured = articles[0];
-    const rest = articles.slice(1);
+        const fetchArticles = async () => {
+            // Count total published articles
+            const { count } = await supabase.from('articles')
+                .select('*', { count: 'exact', head: true })
+                .eq('published', true);
+
+            if (count !== null) setTotalPages(Math.max(1, Math.ceil(count / LIMIT)));
+
+            // Fetch paginated data
+            const start = (page - 1) * LIMIT;
+            const end = start + LIMIT - 1;
+
+            const { data } = await supabase.from('articles')
+                .select('id, title, slug, excerpt, thumbnail, created_at')
+                .eq('published', true)
+                .order('created_at', { ascending: false })
+                .range(start, end);
+
+            setArticles(data || []);
+            setLoading(false);
+        };
+        fetchArticles();
+    }, [page]);
+
+    const featured = page === 1 ? articles[0] : null;
+    const rest = page === 1 ? articles.slice(1) : articles;
 
     return (
         <>
@@ -160,7 +128,7 @@ export default function Blog() {
                         {/* Main content */}
                         <div>
                             {/* Featured Article */}
-                            {loading ? (
+                            {loading && page === 1 ? (
                                 <Skeleton h={280} br={20} />
                             ) : featured ? (
                                 <div className="featured-flex" style={{ marginBottom: 32 }}>
@@ -171,14 +139,14 @@ export default function Blog() {
                             {/* Ad Banner between featured and grid */}
                             {!loading && articles.length > 0 && (
                                 <div style={{ marginBottom: 28 }}>
-                                    <AdBanner type="horizontal" />
+                                    <AdBanner placement="content_bottom" />
                                 </div>
                             )}
 
                             {/* Articles Grid */}
-                            {loading ? (
-                                <div className="blog-grid">
-                                    {[1, 2, 3].map(i => <Skeleton key={i} h={300} br={16} />)}
+                            {loading && page > 1 ? (
+                                <div className="blog-grid" style={{ marginTop: 20 }}>
+                                    {[1, 2, 3, 4, 5, 6].map(i => <Skeleton key={i} h={300} br={16} />)}
                                 </div>
                             ) : rest.length > 0 ? (
                                 <div className="blog-grid">
@@ -191,6 +159,39 @@ export default function Blog() {
                                     <p style={{ fontSize: 14 }}>Artikel akan segera hadir. Kunjungi kembali nanti!</p>
                                 </div>
                             ) : null}
+
+                            {/* Pagination */}
+                            {totalPages > 1 && (
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 16, marginTop: 40 }}>
+                                    <button
+                                        onClick={() => setPage(p => Math.max(1, p - 1))}
+                                        disabled={page === 1}
+                                        style={{
+                                            padding: '8px 16px', borderRadius: 8, background: 'var(--bg-card)',
+                                            color: '#fff', border: '1px solid var(--border)',
+                                            cursor: page === 1 ? 'not-allowed' : 'pointer',
+                                            opacity: page === 1 ? 0.5 : 1
+                                        }}
+                                    >
+                                        ← Prev
+                                    </button>
+                                    <span style={{ fontSize: 14, color: 'var(--white-60)' }}>
+                                        Halaman {page} dari {totalPages}
+                                    </span>
+                                    <button
+                                        onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                                        disabled={page === totalPages}
+                                        style={{
+                                            padding: '8px 16px', borderRadius: 8, background: 'var(--bg-card)',
+                                            color: '#fff', border: '1px solid var(--border)',
+                                            cursor: page === totalPages ? 'not-allowed' : 'pointer',
+                                            opacity: page === totalPages ? 0.5 : 1
+                                        }}
+                                    >
+                                        Next →
+                                    </button>
+                                </div>
+                            )}
                         </div>
 
                         {/* Sidebar */}
@@ -213,7 +214,7 @@ export default function Blog() {
                             </div>
 
                             {/* Ad sidebar */}
-                            <AdBanner type="sidebar" />
+                            <AdBanner placement="sidebar" />
 
                             {/* Tips card */}
                             <div style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.1), rgba(59,130,246,0.05))', border: '1px solid rgba(139,92,246,0.2)', borderRadius: 16, padding: 20 }}>

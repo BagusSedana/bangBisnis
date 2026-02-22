@@ -13,6 +13,7 @@ import Pricing from './components/Pricing';
 import FAQ from './components/FAQ';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
+import LatestArticles from './components/LatestArticles';
 import { MessageSquare } from 'lucide-react';
 
 // Auth
@@ -24,8 +25,8 @@ import AdminLayout from './components/AdminLayout';
 import Login from './pages/admin/Login';
 import Dashboard from './pages/admin/Dashboard';
 import Articles from './pages/admin/Articles';
-import ArticleEditor from './pages/admin/ArticleEditor';
 import PortfolioAdmin from './pages/admin/PortfolioAdmin';
+import AdsAdmin from './pages/admin/AdsAdmin';
 
 // Public pages
 import Blog from './pages/Blog';
@@ -62,6 +63,7 @@ function LandingPage() {
         <Portfolio />
         <Testimonials />
         <Pricing />
+        <LatestArticles />
         <FAQ />
         <CTA />
       </main>
@@ -91,6 +93,7 @@ export default function App() {
             <Route path="artikel/baru" element={<ArticleEditor />} />
             <Route path="artikel/:id" element={<ArticleEditor />} />
             <Route path="portfolio" element={<PortfolioAdmin />} />
+            <Route path="iklan" element={<AdsAdmin />} />
           </Route>
         </Routes>
       </AuthProvider>
