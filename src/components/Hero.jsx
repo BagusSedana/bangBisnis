@@ -94,14 +94,14 @@ export default function Hero() {
                     width: '100%',
                     objectFit: 'cover',
                     zIndex: 0,
-                    opacity: 0.5,
+                    opacity: 0.7,
                 }}
             />
 
             {/* Gradient overlays */}
             <div style={{
                 position: 'absolute', inset: 0, zIndex: 1,
-                background: 'linear-gradient(90deg, #070612 40%, rgba(7,6,18,0.8) 70%, rgba(7,6,18,0.3) 100%)',
+                background: 'radial-gradient(circle at center, rgba(7,6,18,0.3) 0%, rgba(7,6,18,0.7) 100%)',
             }} />
             <div style={{
                 position: 'absolute', bottom: 0, left: 0, right: 0, height: '160px', zIndex: 10,
