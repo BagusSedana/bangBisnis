@@ -54,19 +54,34 @@ export default function AdsAdmin() {
         setLoading(true);
 
         const payload = { title, placement, image_url: imageUrl, link_url: linkUrl, is_active: isActive };
+        let err = null;
         if (editing) {
-            await supabase.from('ads').update(payload).eq('id', editing);
+            const { error } = await supabase.from('ads').update(payload).eq('id', editing);
+            err = error;
         } else {
-            await supabase.from('ads').insert([payload]);
+            const { error } = await supabase.from('ads').insert([payload]);
+            err = error;
+        }
+
+        if (err) {
+            console.error(err);
+            alert('Gagal menyimpan iklan: ' + err.message);
+            setLoading(false);
+            return;
         }
 
         resetForm();
-        fetchAds();
+        await fetchAds();
     };
 
     const toggleActive = async (ad) => {
-        await supabase.from('ads').update({ is_active: !ad.is_active }).eq('id', ad.id);
-        fetchAds();
+        setLoading(true);
+        const { error } = await supabase.from('ads').update({ is_active: !ad.is_active }).eq('id', ad.id);
+        if (error) {
+            console.error(error);
+            alert('Gagal update status: ' + error.message);
+        }
+        await fetchAds();
     };
 
     return (

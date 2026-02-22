@@ -24,7 +24,7 @@ export default function LatestArticles() {
     if (articles.length === 0) return null;
 
     return (
-        <section style={{ padding: '100px 0', background: 'var(--bg-2)' }}>
+        <section style={{ padding: '100px 0', background: 'var(--bg)', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
             <div className="container">
                 <div style={{
                     display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end',
