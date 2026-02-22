@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import './index.css';
 
 // Public components
@@ -97,6 +98,7 @@ export default function App() {
           </Route>
         </Routes>
       </AuthProvider>
+      <SpeedInsights />
     </BrowserRouter>
   );
 }
