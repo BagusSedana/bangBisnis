@@ -137,9 +137,15 @@ export default function Footer() {
                     justifyContent: 'space-between', alignItems: 'center',
                     gap: 12,
                 }}>
-                    <p style={{ fontSize: 13, color: 'var(--white-60)' }}>
-                        © 2025 BangBisnis. Dibuat dengan ❤️ di Indonesia.
-                    </p>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                        <p style={{ fontSize: 13, color: 'var(--white-60)' }}>
+                            © 2025 BangBisnis. Dibuat dengan ❤️ di Indonesia.
+                        </p>
+                        {/* Seedbacklink Verification Badge */}
+                        <a href="https://id.seedbacklink.com/" target="_blank" rel="noopener noreferrer">
+                            <img title="seedbacklink" src="https://id.seedbacklink.com/wp-content/uploads/2025/04/badge-seedbacklink-media.png" alt="seedbacklink" style={{ height: 24, width: 'auto', display: 'block', opacity: 0.7 }} />
+                        </a>
+                    </div>
                     <p style={{ fontSize: 13, color: 'var(--white-60)' }}>
                         Privasi terjaga — kami tidak menjual data kamu.
                     </p>
