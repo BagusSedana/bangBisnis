@@ -156,7 +156,7 @@ export default function Hero() {
                             marginBottom: 40,
                             fontWeight: 400,
                         }}>
-                            Landing page & website profesional yang dirancang untuk <strong style={{ color: 'var(--white)' }}>menghasilkan leads</strong> dan meningkatkan penjualan bisnis kamu — cepat, modern, dan dioptimalkan untuk konversi.
+                            Landing page & website profesional yang dirancang untuk <strong style={{ color: 'var(--accent)', fontWeight: 700 }}>menghasilkan leads</strong> dan meningkatkan penjualan bisnis kamu — cepat, modern, dan dioptimalkan untuk konversi.
                         </p>
                     </BlurIn>
 
