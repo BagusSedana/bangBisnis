@@ -26,6 +26,7 @@ import AdminLayout from './components/AdminLayout';
 import Login from './pages/admin/Login';
 import Dashboard from './pages/admin/Dashboard';
 import Articles from './pages/admin/Articles';
+import ArticleEditor from './pages/admin/ArticleEditor';
 import PortfolioAdmin from './pages/admin/PortfolioAdmin';
 import AdsAdmin from './pages/admin/AdsAdmin';
 
