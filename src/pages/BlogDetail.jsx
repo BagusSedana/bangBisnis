@@ -177,7 +177,7 @@ export default function BlogDetail() {
                     </main>
 
                     {/* ── Sidebar ── */}
-                    <aside className="article-sidebar" style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                    <aside className="article-sidebar" style={{ position: 'sticky', top: 120, display: 'flex', flexDirection: 'column', gap: 20 }}>
                         {/* Ad */}
                         <AdBanner placement="sidebar" />
 
