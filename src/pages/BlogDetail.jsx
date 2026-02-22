@@ -91,6 +91,8 @@ export default function BlogDetail() {
                 .article-content blockquote { border-left: 3px solid #f5c518; margin: 1.5em 0; padding: 12px 20px; background: rgba(245,197,24,0.05); border-radius: 0 10px 10px 0; font-style: italic; color: rgba(255,255,255,0.7); }
                 .article-content hr { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 2em 0; }
                 .related-card:hover { border-color: rgba(245,197,24,0.3) !important; transform: translateY(-2px); }
+                .article-sidebar::-webkit-scrollbar { display: none; }
+                .article-sidebar { -ms-overflow-style: none; scrollbar-width: none; }
             `}</style>
             <Navbar />
 
@@ -177,7 +179,7 @@ export default function BlogDetail() {
                     </main>
 
                     {/* ── Sidebar ── */}
-                    <aside className="article-sidebar" style={{ position: 'sticky', top: 100, display: 'flex', flexDirection: 'column', gap: 20 }}>
+                    <aside className="article-sidebar" style={{ position: 'sticky', top: 100, display: 'flex', flexDirection: 'column', gap: 20, maxHeight: 'calc(100vh - 120px)', overflowY: 'auto' }}>
                         {/* Ad */}
                         <AdBanner placement="sidebar" />
 
