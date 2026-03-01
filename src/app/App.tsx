@@ -4,6 +4,7 @@ import { LogoMarquee } from "./components/LogoMarquee";
 import { Stats } from "./components/Stats";
 import { Services } from "./components/Services";
 import { TextMarquee } from "./components/TextMarquee";
+import { LocalSEO } from "./components/LocalSEO";
 import { Portfolio } from "./components/Portfolio";
 import { WhyUs } from "./components/WhyUs";
 import { Process } from "./components/Process";
@@ -28,6 +29,7 @@ export default function App() {
       <Stats />
       <Services />
       <TextMarquee />
+      <LocalSEO />
       <Portfolio />
       <WhyUs />
       <Process />

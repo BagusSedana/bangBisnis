@@ -47,11 +47,11 @@ export function Hero() {
           className="text-[2.5rem] md:text-[4rem] lg:text-[4.5rem] tracking-tight text-neutral-900 mb-6"
           style={{ fontFamily: "Space Grotesk, sans-serif", fontWeight: 600, lineHeight: 1.05 }}
         >
-          Jasa Website
+          Jasa Website Profesional di Bali
           <br />
-          <span className="text-neutral-400">Profesional di Bali</span>
+          <span className="text-neutral-400">untuk Bisnis Lokal yang Siap</span>
           <br />
-          untuk Bisnis Lokal
+          Mendatangkan Pelanggan
         </motion.h1>
 
         <motion.p
@@ -61,14 +61,14 @@ export function Hero() {
           className="text-neutral-500 max-w-lg mx-auto mb-10 text-[1rem] md:text-[1.125rem]"
           style={{ fontFamily: "Inter, sans-serif", lineHeight: 1.7 }}
         >
-          Kami membantu bisnis di Badung, Kuta Selatan, dan Jimbaran tampil profesional, mudah ditemukan di Google, dan siap menerima order dalam 7 hari.
+          Kami membantu bisnis di Bali tampil lebih profesional, lebih dipercaya, dan lebih mudah ditemukan oleh calon pelanggan melalui Google. Tanpa ribet dan tanpa proses yang membingungkan.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6"
         >
           <a
             href="#kontak"
@@ -84,6 +84,33 @@ export function Hero() {
           >
             Lihat Portfolio
           </a>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1 }}
+          className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center text-neutral-500 text-[0.875rem]"
+          style={{ fontFamily: "Inter, sans-serif" }}
+        >
+          <div className="flex items-center gap-1.5">
+            <svg className="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            Melayani bisnis di Bali
+          </div>
+          <div className="flex items-center gap-1.5">
+            <svg className="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            Siap mulai dalam 3–7 hari
+          </div>
+          <div className="flex items-center gap-1.5">
+            <svg className="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            Konsultasi gratis tanpa komitmen
+          </div>
         </motion.div>
       </div>
 
