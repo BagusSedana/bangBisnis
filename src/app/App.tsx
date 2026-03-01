@@ -27,9 +27,9 @@ export default function App() {
       <Hero />
       <LogoMarquee />
       <Stats />
+      <LocalSEO />
       <Services />
       <TextMarquee />
-      <LocalSEO />
       <Portfolio />
       <WhyUs />
       <Process />
