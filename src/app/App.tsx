@@ -26,8 +26,8 @@ export default function App() {
       <Navbar />
       <Hero />
       <LogoMarquee />
-      <Stats />
       <LocalSEO />
+      <Stats />
       <Services />
       <TextMarquee />
       <Portfolio />
