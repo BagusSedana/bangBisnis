@@ -47,9 +47,11 @@ export function Hero() {
           className="text-[2.5rem] md:text-[4rem] lg:text-[4.5rem] tracking-tight text-neutral-900 mb-6"
           style={{ fontFamily: "Space Grotesk, sans-serif", fontWeight: 600, lineHeight: 1.05 }}
         >
-          Jasa Website Profesional di Bali
+          Jasa Website
           <br />
-          <span className="text-neutral-400">untuk Bisnis Lokal</span>
+          <span className="text-neutral-400">Profesional di Bali</span>
+          <br />
+          untuk Bisnis Lokal
         </motion.h1>
 
         <motion.p
